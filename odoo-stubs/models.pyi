@@ -36,6 +36,7 @@ regex_pg_name: Pattern[str]
 regex_field_agg: Pattern[str]
 regex_read_group_spec: Pattern[str]
 AUTOINIT_RECALCULATE_STORED_FIELDS: int
+GC_UNLINK_LIMIT: int
 INSERT_BATCH_SIZE: int
 SQL_DEFAULT: psycopg2.extensions.AsIs
 
@@ -273,6 +274,9 @@ class BaseModel(metaclass=MetaModel):
     def _read_group_format_result_properties(
         self, rows_dict: Iterable[dict], group: str
     ) -> None: ...
+    def _read_group_get_annoted_groupby(
+        self, groupby: str | list[str], lazy: bool
+    ) -> dict: ...
     def read_group(
         self,
         domain: list,
